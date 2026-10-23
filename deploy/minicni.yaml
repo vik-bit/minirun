@@ -1,0 +1,84 @@
+# minicni for Kubernetes: one daemon per node that installs the plugin, writes
+# the node's CNI config and keeps routes to every other node's pod subnet.
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: minicni
+  namespace: kube-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: minicni
+rules:
+  # The daemon only reads nodes: their pod subnets and addresses.
+  - apiGroups: [""]
+    resources: ["nodes"]
+    verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: minicni
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: minicni
+subjects:
+  - kind: ServiceAccount
+    name: minicni
+    namespace: kube-system
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: minicni
+  namespace: kube-system
+  labels:
+    app: minicni
+spec:
+  selector:
+    matchLabels:
+      app: minicni
+  template:
+    metadata:
+      labels:
+        app: minicni
+    spec:
+      serviceAccountName: minicni
+      # The pod network does not exist yet, so the daemon uses the node's.
+      hostNetwork: true
+      priorityClassName: system-node-critical
+      tolerations:
+        - operator: Exists # run on every node, including not-ready ones and the control plane
+      containers:
+        - name: minicni
+          image: minicni:dev
+          imagePullPolicy: Never # loaded into Kind with `kind load docker-image`
+          args: ["--cluster-cidr=10.244.0.0/16"]
+          env:
+            - name: NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+          securityContext:
+            capabilities:
+              add: ["NET_ADMIN"] # to manage the node's routes
+          resources:
+            requests:
+              cpu: 10m
+              memory: 16Mi
+            limits:
+              memory: 64Mi
+          volumeMounts:
+            - name: cni-bin
+              mountPath: /host/opt/cni/bin
+            - name: cni-conf
+              mountPath: /host/etc/cni/net.d
+      volumes:
+        - name: cni-bin
+          hostPath:
+            path: /opt/cni/bin
+        - name: cni-conf
+          hostPath:
+            path: /etc/cni/net.d
