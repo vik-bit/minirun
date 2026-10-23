@@ -23,6 +23,26 @@ jobs:
       - name: Unit tests (race detector)
         run: go test -race ./...
 
+  integration:
+    name: Integration tests (real containers, privileged Docker)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run
+        run: scripts/integration.sh
+
+  e2e:
+    name: End to end on a 3-node Kind cluster
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install kind
+        run: |
+          curl -sSLo kind https://github.com/kubernetes-sigs/kind/releases/download/v0.24.0/kind-linux-amd64
+          chmod +x kind && sudo mv kind /usr/local/bin/kind
+      - name: Run
+        run: scripts/kind-e2e.sh
+
   cross-build:
     name: Build for arm64
     runs-on: ubuntu-latest
