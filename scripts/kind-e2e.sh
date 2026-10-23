@@ -61,9 +61,15 @@ k exec same-node -- ping -c 3 -W 2 "$server_ip" >/dev/null
 ok "same-node pod -> $server_ip (through the bridge)"
 k exec other-node -- ping -c 3 -W 2 "$server_ip" >/dev/null
 ok "cross-node pod -> $server_ip (through a host-gw route)"
-body=$(k exec other-node -- wget -qO- -T 5 http://server.default.svc.cluster.local/)
-[[ "$body" == "hello-from-server" ]]
-ok "Service by DNS name returned '$body'"
+# A new Service's DNS record and kube-proxy rules appear asynchronously after
+# `kubectl expose`, so give them up to a minute instead of trying once.
+body=""
+for attempt in $(seq 30); do
+  body=$(k exec other-node -- wget -qO- -T 3 http://server.default.svc.cluster.local/ 2>/dev/null) && break
+  sleep 2
+done
+[[ "$body" == "hello-from-server" ]] || { echo "FAIL  Service by DNS name: no answer after $attempt attempts"; exit 1; }
+ok "Service by DNS name returned '$body' (attempt $attempt)"
 
 step "routes on ${workers[0]}"
 "$DOCKER" exec "${workers[0]}" ip route | grep -E '10\.244\.' || true
