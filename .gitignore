@@ -1,0 +1,5 @@
+/minirun
+/minicni
+/bin/
+*.test
+*.out
