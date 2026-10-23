@@ -22,7 +22,7 @@ mkdir -p bench/results
   -v "$(hostpath .):/src" -v "$(hostpath "$work"):/work" \
   -v minirun-gomod:/go/pkg/mod -v minirun-gocache:/root/.cache/go-build \
   minirun-dev sh -ec '
-    go build -o /tmp/minirun ./cmd/minirun && go build -o /tmp/starttime ./bench/starttime
+    go build -buildvcs=false -o /tmp/minirun ./cmd/minirun && go build -buildvcs=false -o /tmp/starttime ./bench/starttime
     # As on a systemd host, keep the root cgroup free of processes, so runc and
     # minirun both start from the same clean state.
     mkdir -p /sys/fs/cgroup/init && for p in $(cat /sys/fs/cgroup/cgroup.procs); do echo $p > /sys/fs/cgroup/init/cgroup.procs 2>/dev/null || true; done

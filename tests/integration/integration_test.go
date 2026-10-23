@@ -37,7 +37,9 @@ func TestMain(m *testing.M) {
 	must(err)
 	bin = filepath.Join(tmp, "bin")
 	for pkg, name := range map[string]string{"../../cmd/minirun": "minirun", "../../cmd/minicni": "minicni", "./probe": "probe"} {
-		cmd := exec.Command("go", "build", "-o", filepath.Join(bin, name), pkg)
+		// -buildvcs=false: the checkout belongs to another user than this root
+		// process, so git refuses to read it and the build would fail.
+		cmd := exec.Command("go", "build", "-buildvcs=false", "-o", filepath.Join(bin, name), pkg)
 		cmd.Env = append(os.Environ(), "CGO_ENABLED=0")
 		out, err := cmd.CombinedOutput()
 		if err != nil {
