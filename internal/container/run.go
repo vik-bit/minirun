@@ -53,6 +53,13 @@ func Run(cfg Config, opt Options) (Result, error) {
 			return Result{}, err
 		}
 	}
+	// The kernel refuses (with a bare EINVAL) an overlay whose upper layer is itself
+	// on overlayfs, which is the case inside most Docker containers.
+	var fs unix.Statfs_t
+	if err := unix.Statfs(cfg.Upper, &fs); err == nil && fs.Type == unix.OVERLAYFS_SUPER_MAGIC {
+		return Result{}, fmt.Errorf("state dir %s is on overlayfs, which cannot hold an overlay's upper layer; "+
+			"use a directory on ext4, xfs or tmpfs (--state-dir)", opt.StateDir)
+	}
 	if !opt.Keep {
 		defer os.RemoveAll(dir)
 	}

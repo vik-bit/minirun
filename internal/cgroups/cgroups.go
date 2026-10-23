@@ -113,14 +113,31 @@ func enableControllers(dir string) error {
 }
 
 func enableHere(dir string) error {
+	control := filepath.Join(dir, "cgroup.subtree_control")
 	want := "+" + strings.Join(controllers, " +")
-	err := os.WriteFile(filepath.Join(dir, "cgroup.subtree_control"), []byte(want), 0)
-	if !errors.Is(err, unix.EBUSY) {
-		if err != nil {
-			return fmt.Errorf("cgroups: enable controllers in %s: %w", dir, err)
+	err := os.WriteFile(control, []byte(want), 0)
+	if errors.Is(err, unix.EBUSY) {
+		// The group holds processes. Move them out first, before any controller is
+		// on: once one is, new child groups cannot accept processes at all.
+		if err := moveProcsToLeaf(dir); err != nil {
+			return err
 		}
-		return nil
+		err = os.WriteFile(control, []byte(want), 0)
 	}
+	if errors.Is(err, unix.EOPNOTSUPP) {
+		return fmt.Errorf("cgroups: enable controllers in %s: %w (another tool has already enabled "+
+			"controllers here while the group still holds processes; move those processes into a "+
+			"child group first, as systemd does on a normal host)", dir, err)
+	}
+	if err != nil {
+		return fmt.Errorf("cgroups: enable controllers in %s: %w", dir, err)
+	}
+	return nil
+}
+
+// moveProcsToLeaf moves every process in dir into dir/init, so dir has no
+// processes of its own and may hand controllers down to its children.
+func moveProcsToLeaf(dir string) error {
 	leaf := filepath.Join(dir, "init")
 	if err := os.Mkdir(leaf, 0o755); err != nil && !errors.Is(err, os.ErrExist) {
 		return err
@@ -134,9 +151,6 @@ func enableHere(dir string) error {
 		if err := os.WriteFile(filepath.Join(leaf, "cgroup.procs"), []byte(pid), 0); err != nil && !errors.Is(err, unix.ESRCH) {
 			return fmt.Errorf("cgroups: move pid %s to %s: %w", pid, leaf, err)
 		}
-	}
-	if err := os.WriteFile(filepath.Join(dir, "cgroup.subtree_control"), []byte(want), 0); err != nil {
-		return fmt.Errorf("cgroups: enable controllers in %s: %w", dir, err)
 	}
 	return nil
 }
