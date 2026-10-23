@@ -1,0 +1,7 @@
+# Development and test image: Go toolchain plus the networking tools the
+# integration tests use. Tests that create namespaces need `docker run --privileged`.
+FROM golang:1.23-bookworm
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        iproute2 iptables iputils-ping runc procps \
+    && rm -rf /var/lib/apt/lists/*
+WORKDIR /src
