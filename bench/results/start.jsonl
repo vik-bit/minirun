@@ -1,0 +1,4 @@
+runc version 1.1.5+ds1
+{"max_ms":121.796,"median_ms":48.177,"min_ms":33.936,"name":"runc","p95_ms":69.461,"runs":50}
+{"max_ms":47.693,"median_ms":9.242,"min_ms":7.097,"name":"minirun","p95_ms":14.88,"runs":50}
+{"max_ms":35.737,"median_ms":8.243,"min_ms":6.673,"name":"minirun-no-seccomp","p95_ms":22.322,"runs":50}

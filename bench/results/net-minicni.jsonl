@@ -1,0 +1,10 @@
+{"cni":"minicni","path":"cross","rep":1,"gbps":23.59310756504054,"rr":{"p50_us":177,"p90_us":280,"p999_us":927,"p99_us":529,"per_second":5318.2823815941265,"transactions":53183}}
+{"cni":"minicni","path":"same","rep":1,"gbps":35.30866002673424,"rr":{"p50_us":151,"p90_us":257,"p999_us":833,"p99_us":471,"per_second":6156.373240092437,"transactions":61564}}
+{"cni":"minicni","path":"cross","rep":2,"gbps":22.781658786060042,"rr":{"p50_us":170,"p90_us":273,"p999_us":771,"p99_us":460,"per_second":5585.983646474277,"transactions":55860}}
+{"cni":"minicni","path":"same","rep":2,"gbps":36.42228006258571,"rr":{"p50_us":148,"p90_us":251,"p999_us":858,"p99_us":466,"per_second":6280.856962940004,"transactions":62809}}
+{"cni":"minicni","path":"cross","rep":3,"gbps":24.12422547087085,"rr":{"p50_us":170,"p90_us":273,"p999_us":901,"p99_us":505,"per_second":5544.194818395523,"transactions":55442}}
+{"cni":"minicni","path":"same","rep":3,"gbps":35.48744935702868,"rr":{"p50_us":142,"p90_us":243,"p999_us":810,"p99_us":462,"per_second":6449.567412372963,"transactions":64497}}
+{"cni":"minicni","path":"cross","rep":4,"gbps":25.038824159985648,"rr":{"p50_us":171,"p90_us":275,"p999_us":889,"p99_us":511,"per_second":5497.591927238376,"transactions":54977}}
+{"cni":"minicni","path":"same","rep":4,"gbps":36.56347197764523,"rr":{"p50_us":145,"p90_us":243,"p999_us":780,"p99_us":448,"per_second":6414.6691447999465,"transactions":64147}}
+{"cni":"minicni","path":"cross","rep":5,"gbps":25.19824678990103,"rr":{"p50_us":179,"p90_us":301,"p999_us":1138,"p99_us":545,"per_second":5154.9383515767595,"transactions":51550}}
+{"cni":"minicni","path":"same","rep":5,"gbps":35.48014559393716,"rr":{"p50_us":140,"p90_us":237,"p999_us":866,"p99_us":457,"per_second":6535.502308618591,"transactions":65356}}

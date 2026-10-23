@@ -1,0 +1,10 @@
+{"cni":"flannel-vxlan","path":"cross","rep":1,"gbps":13.754706564844222,"rr":{"p50_us":219,"p90_us":367,"p999_us":1188,"p99_us":599,"per_second":4190.681633918671,"transactions":41907}}
+{"cni":"flannel-vxlan","path":"same","rep":1,"gbps":27.310052354764526,"rr":{"p50_us":181,"p90_us":300,"p999_us":961,"p99_us":489,"per_second":5235.462797324909,"transactions":52355}}
+{"cni":"flannel-vxlan","path":"cross","rep":2,"gbps":13.24596755372301,"rr":{"p50_us":221,"p90_us":367,"p999_us":1607,"p99_us":591,"per_second":4157.137946401875,"transactions":41572}}
+{"cni":"flannel-vxlan","path":"same","rep":2,"gbps":26.5760961792199,"rr":{"p50_us":179,"p90_us":292,"p999_us":906,"p99_us":466,"per_second":5322.0478508497235,"transactions":53221}}
+{"cni":"flannel-vxlan","path":"cross","rep":3,"gbps":13.12211482994971,"rr":{"p50_us":218,"p90_us":353,"p999_us":1049,"p99_us":550,"per_second":4260.672702296063,"transactions":42607}}
+{"cni":"flannel-vxlan","path":"same","rep":3,"gbps":27.012574075505352,"rr":{"p50_us":180,"p90_us":288,"p999_us":907,"p99_us":458,"per_second":5363.446749555293,"transactions":53635}}
+{"cni":"flannel-vxlan","path":"cross","rep":4,"gbps":13.403034321572202,"rr":{"p50_us":213,"p90_us":365,"p999_us":1126,"p99_us":581,"per_second":4263.773598713877,"transactions":42638}}
+{"cni":"flannel-vxlan","path":"same","rep":4,"gbps":26.43236851765145,"rr":{"p50_us":179,"p90_us":292,"p999_us":876,"p99_us":466,"per_second":5332.1427685120225,"transactions":53322}}
+{"cni":"flannel-vxlan","path":"cross","rep":5,"gbps":13.236249685965639,"rr":{"p50_us":216,"p90_us":362,"p999_us":1204,"p99_us":575,"per_second":4246.223198985623,"transactions":42463}}
+{"cni":"flannel-vxlan","path":"same","rep":5,"gbps":26.93216897199132,"rr":{"p50_us":181,"p90_us":295,"p999_us":786,"p99_us":463,"per_second":5318.881256507837,"transactions":53190}}

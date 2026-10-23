@@ -1,0 +1,10 @@
+{"cni":"flannel-host-gw","path":"cross","rep":1,"gbps":24.066446265007432,"rr":{"p50_us":174,"p90_us":287,"p999_us":995,"p99_us":551,"per_second":5313.487605758811,"transactions":53135}}
+{"cni":"flannel-host-gw","path":"same","rep":1,"gbps":35.05900817174533,"rr":{"p50_us":147,"p90_us":256,"p999_us":895,"p99_us":492,"per_second":6226.688971288494,"transactions":62267}}
+{"cni":"flannel-host-gw","path":"cross","rep":2,"gbps":24.74327380639567,"rr":{"p50_us":174,"p90_us":282,"p999_us":1089,"p99_us":528,"per_second":5392.23309478943,"transactions":53923}}
+{"cni":"flannel-host-gw","path":"same","rep":2,"gbps":35.0427128023696,"rr":{"p50_us":152,"p90_us":259,"p999_us":917,"p99_us":488,"per_second":6101.399437344614,"transactions":61015}}
+{"cni":"flannel-host-gw","path":"cross","rep":3,"gbps":24.625132070657436,"rr":{"p50_us":171,"p90_us":282,"p999_us":1133,"p99_us":536,"per_second":5433.733228693644,"transactions":54340}}
+{"cni":"flannel-host-gw","path":"same","rep":3,"gbps":35.30428973899552,"rr":{"p50_us":152,"p90_us":253,"p999_us":942,"p99_us":470,"per_second":6156.583688747175,"transactions":61566}}
+{"cni":"flannel-host-gw","path":"cross","rep":4,"gbps":24.487097296283395,"rr":{"p50_us":176,"p90_us":290,"p999_us":995,"p99_us":544,"per_second":5258.175828165718,"transactions":52582}}
+{"cni":"flannel-host-gw","path":"same","rep":4,"gbps":35.05985138524687,"rr":{"p50_us":179,"p90_us":295,"p999_us":916,"p99_us":514,"per_second":5299.505697945858,"transactions":52996}}
+{"cni":"flannel-host-gw","path":"cross","rep":5,"gbps":21.422538807138277,"rr":{"p50_us":199,"p90_us":338,"p999_us":1068,"p99_us":579,"per_second":4630.337345516277,"transactions":46304}}
+{"cni":"flannel-host-gw","path":"same","rep":5,"gbps":31.680522355572514,"rr":{"p50_us":192,"p90_us":326,"p999_us":1604,"p99_us":554,"per_second":4758.264563300491,"transactions":47583}}
